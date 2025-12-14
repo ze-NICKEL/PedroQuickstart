@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
+import com.pedropathing.control.PIDFCoefficients;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.ftc.FollowerBuilder;
@@ -19,12 +20,37 @@ public class Constants {
 
             //weight: 30.08 lbs(average)
             .mass(13.19954)
+            /// @param P: Error is multiplied by P to fix it(basically power )
+            /// @param I: Small errors are added/subtracted by I to reduce error
+            /// @param D: When the control hub cuts off power to the motor(if the robot is close to the target, cut power)
+            /// @param F: ORiginal Power to account for friction
+
+
+            /// Tuning steps: FPDI
+
+            /// e	Error = target - current
+            /// target:	Desired position or velocity
+            /// current:Measured position or velocity
+            /// kP	Proportional gain (reacts to current error)
+            /// kI	Integral gain (reacts to accumulated error)
+            /// kD	Derivative gain (reacts to error change rate)
+            /// kF	Feedforward gain (predicts required power)
+            /// dt	Time step between updates
+
+            /// P = kP * e
+            /// I = kI * sum(e * dt)
+            /// D = kD * ((e - lastE) / dt)
+            /// F = kF * target
 
             //TODO: 5 Run ForwardZeroPowerAccelerationTuner after finding max x and y velocity
             .forwardZeroPowerAcceleration(-30.260691682448705)
 
             //TODO: 6 Run LateralZeroPowerAccelerationTuner to find side deceleration rate
-            .lateralZeroPowerAcceleration(-67.06771722288579);
+            .lateralZeroPowerAcceleration(-67.06771722288579)
+
+            .useSecondaryTranslationalPIDF(true)
+            .translationalPIDFCoefficients(new PIDFCoefficients(0.225, 0, 0.023, 0.024))
+            .secondaryTranslationalPIDFCoefficients(new PIDFCoefficients(0.40, 0, 0.05, 0.015));
 
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 
@@ -64,7 +90,7 @@ public class Constants {
 
             // 3 TODO: 3  FIND ENCODER DIRECTION BY RUNNING LOCALIZATION TEST(SEE IF ROBOT MOVEMENT CORRELATES TO X/Y VALUES)
             .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
-            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
+            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
 
 
