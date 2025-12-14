@@ -13,6 +13,29 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+
+/// @param P: Error is multiplied by P to fix it
+/// @param I: Small errors are added/subtracted by I to reduce error
+/// @param D: When the control hub cuts off power to the motor(if the robot is close to the target, cut power)
+/// @param F: Original Power to account for friction
+
+
+/// Tuning steps: FPDI
+
+/// e	Error = target - current
+/// target:	Desired position or velocity
+/// current:Measured position or velocity
+/// kP	Proportional gain (reacts to current error)
+/// kI	Integral gain (reacts to accumulated error)
+/// kD	Derivative gain (reacts to error change rate)
+/// kF	Feedforward gain (predicts required power)
+/// dt	Time step between updates
+
+/// P = kP * e
+/// I = kI * sum(e * dt)
+/// D = kD * ((e - lastE) / dt)
+/// F = kF * target
+
 public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
 
@@ -20,27 +43,6 @@ public class Constants {
 
             //weight: 30.08 lbs(average)
             .mass(13.19954)
-            /// @param P: Error is multiplied by P to fix it(basically power )
-            /// @param I: Small errors are added/subtracted by I to reduce error
-            /// @param D: When the control hub cuts off power to the motor(if the robot is close to the target, cut power)
-            /// @param F: ORiginal Power to account for friction
-
-
-            /// Tuning steps: FPDI
-
-            /// e	Error = target - current
-            /// target:	Desired position or velocity
-            /// current:Measured position or velocity
-            /// kP	Proportional gain (reacts to current error)
-            /// kI	Integral gain (reacts to accumulated error)
-            /// kD	Derivative gain (reacts to error change rate)
-            /// kF	Feedforward gain (predicts required power)
-            /// dt	Time step between updates
-
-            /// P = kP * e
-            /// I = kI * sum(e * dt)
-            /// D = kD * ((e - lastE) / dt)
-            /// F = kF * target
 
             //TODO: 5 Run ForwardZeroPowerAccelerationTuner after finding max x and y velocity
             .forwardZeroPowerAcceleration(-30.260691682448705)
@@ -49,6 +51,8 @@ public class Constants {
             .lateralZeroPowerAcceleration(-67.06771722288579)
 
             .useSecondaryTranslationalPIDF(true)
+            .useSecondaryHeadingPIDF(true)
+            .useSecondaryDrivePIDF(true)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.225, 0, 0.023, 0.024))
             .secondaryTranslationalPIDFCoefficients(new PIDFCoefficients(0.40, 0, 0.05, 0.015));
 
