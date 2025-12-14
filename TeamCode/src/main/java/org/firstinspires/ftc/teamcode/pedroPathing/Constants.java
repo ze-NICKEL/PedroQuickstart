@@ -18,7 +18,7 @@ public class Constants {
             // 1 TODO: 1 GET MASS OF BOT(IN KILOGRAMS) by finding weight(in pounds), then converting to kilograms
 
             //weight: 30.08 lbs(average)
-            .mass(13.644058)
+            .mass(13.19954)
 
             //TODO: 5 Run ForwardZeroPowerAccelerationTuner after finding max x and y velocity
             .forwardZeroPowerAcceleration(-30.260691682448705)
