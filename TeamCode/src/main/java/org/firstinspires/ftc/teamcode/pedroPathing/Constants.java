@@ -16,13 +16,15 @@ public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
 
             // 1 TODO: 1 GET MASS OF BOT(IN KILOGRAMS) by finding weight(in pounds), then converting to kilograms
-            .mass(0)
+
+            //weight: 30.08 lbs(average)
+            .mass(13.644058)
 
             //TODO: 5 Run ForwardZeroPowerAccelerationTuner after finding max x and y velocity
-            .forwardZeroPowerAcceleration(0)
+            .forwardZeroPowerAcceleration(-30.260691682448705)
 
             //TODO: 6 Run LateralZeroPowerAccelerationTuner to find side deceleration rate
-            .lateralZeroPowerAcceleration(0);
+            .lateralZeroPowerAcceleration(-67.06771722288579);
 
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 
@@ -36,24 +38,26 @@ public class Constants {
 
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
-            .rightFrontMotorName("rf")
-            .rightRearMotorName("rr")
-            .leftRearMotorName("lr")
-            .leftFrontMotorName("lf")
+            .rightFrontMotorName("right_front")
+            .rightRearMotorName("right_back")
+            .leftRearMotorName("left_back")
+            .leftFrontMotorName("left_front")
             .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightRearMotorDirection(DcMotorSimple.Direction.REVERSE)
 
             //4 TODO: 4 RUN Forward and LateralVelocityTuner and input end result(max directional velocity)
-            .xVelocity(0)
-            .yVelocity(0);
+            .xVelocity(-34.43354803006264)
+            .yVelocity(-60.49884031422858);
+
+
 
     public static PinpointConstants localizerConstants = new PinpointConstants()
 
             // 2 TODO:  2 MEASURE DISTANCE BETWEEN STRAFE POD AND FORWARD POD
-            .forwardPodY(-5)
-            .strafePodX(0.5)
+            .forwardPodY(3.75)
+            .strafePodX(8.25)
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("pinpoint")
             .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
@@ -66,4 +70,6 @@ public class Constants {
 
 
 
+
 }
+
