@@ -14,9 +14,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
-/// @param P: Error is multiplied by P to fix it
+/// @param P: Error is multiplied by P to fix it(how aggressively it gets fixed)
 /// @param I: Small errors are added/subtracted by I to reduce error
-/// @param D: When the control hub cuts off power to the motor(if the robot is close to the target, cut power)
+/// @param D: When the control hub cuts off power to the motor(if the robot is close to the target, cut power), higher = more oscillation(or could be too high P)
 /// @param F: Original Power to account for friction
 
 
@@ -53,6 +53,8 @@ public class Constants {
             .useSecondaryTranslationalPIDF(true)
             .useSecondaryHeadingPIDF(true)
             .useSecondaryDrivePIDF(true)
+
+            //TRANSLATIONAL PIDF COEFFICIENTS
             .translationalPIDFCoefficients(new PIDFCoefficients(0.225, 0, 0.023, 0.024))
             .secondaryTranslationalPIDFCoefficients(new PIDFCoefficients(0.40, 0, 0.05, 0.015));
 
@@ -76,6 +78,7 @@ public class Constants {
             .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightRearMotorDirection(DcMotorSimple.Direction.REVERSE)
+
 
             //4 TODO: 4 RUN Forward and LateralVelocityTuner and input end result(max directional velocity)
             .xVelocity(-34.43354803006264)
