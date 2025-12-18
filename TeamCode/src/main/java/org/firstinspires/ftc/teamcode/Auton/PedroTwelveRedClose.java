@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Auton;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
@@ -11,8 +12,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "Pedro Pathing Autonomous", group = "Autonomous")
+@Autonomous(name = "Pedro Pathing Autonomous red close", group = "Autonomous")
 @Configurable // Panels
+@Config
 public class PedroTwelveRedClose extends OpMode {
 
     private TelemetryManager panelsTelemetry; // Panels Telemetry instance
@@ -25,18 +27,29 @@ public class PedroTwelveRedClose extends OpMode {
         panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
 
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(72, 8, Math.toRadians(90)));
+        follower.setStartingPose(new Pose(52, -50, Math.toRadians(135)));
 
         paths = new Paths(follower); // Build paths
 
         panelsTelemetry.debug("Status", "Initialized");
         panelsTelemetry.update(telemetry);
+
+
     }
+
+
+    int path = 1;
+
+    boolean pathRan = false;
 
     @Override
     public void loop() {
         follower.update(); // Update Pedro Pathing
-        pathState = autonomousPathUpdate(); // Update autonomous state machine
+        autonomousPathUpdate(path); // Update autonomous state machine
+        //int path and boolean pathRan are updated inside autonomousPathUpdate();
+
+
+
 
         // Log values to Panels and Driver Station
         panelsTelemetry.debug("Path State", pathState);
@@ -60,10 +73,10 @@ public class PedroTwelveRedClose extends OpMode {
                     .pathBuilder()
                     .addPath(
                             new BezierCurve(
-                                    new Pose(123.317, 123.122),
-                                    new Pose(76.293, 75.902),
-                                    new Pose(104.195, 84.098),
-                                    new Pose(132.683, 84.293)
+                                    new Pose(30, -30),
+                                    new Pose(15, -20),
+                                    new Pose(10, -55)
+                                    //new Pose(132.683, 84.293)
                             )
                     )
                     .setTangentHeadingInterpolation()
@@ -133,10 +146,38 @@ public class PedroTwelveRedClose extends OpMode {
         }
     }
 
-    public int autonomousPathUpdate() {
-        // Add your state machine Here
-        // Access paths with paths.pathName
-        // Refer to the Pedro Pathing Docs (Auto Example) for an example state machine
-        return pathState;
+    public void autonomousPathUpdate(int path) {
+
+            if (path == 1 && !follower.isBusy()) {
+                follower.followPath(paths.firstIntake);
+
+                if (!follower.isBusy()) {
+                    pathRan = true;
+                    path = path + 1;
+                }
+
+            }
+
+            //TODO: FIRST, TEST FIRSTINTAKE, THEN TEST REST OF PATHS
+            /*
+            else if (path == 2 && !follower.isBusy()) {
+                pathRan = false;
+                follower.followPath(paths.firstGoal);
+
+                if (!follower.isBusy()) {
+
+                path = path + 1;
+
+                pathRan = true;
+
+
+                }
+            }
+            else if (path == 2) {
+                follower.followPath(paths.secondIntake);
+            }*/
+            // Add your state machine Here
+            // Access paths with paths.pathName
+            // Refer to the Pedro Pathing Docs (Auto Example) for an example state machine
     }
 }

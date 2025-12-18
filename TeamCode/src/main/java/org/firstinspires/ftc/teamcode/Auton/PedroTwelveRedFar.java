@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "Pedro Pathing Autonomous", group = "Autonomous")
+@Autonomous(name = "Pedro Pathing Autonomous red far", group = "Autonomous")
 @Configurable // Panels
 public class PedroTwelveRedFar extends OpMode {
 
@@ -28,7 +28,7 @@ public class PedroTwelveRedFar extends OpMode {
         panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
 
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(72, 8, Math.toRadians(90)));
+        follower.setStartingPose(new Pose(72, 8, Math.toRadians(225)));
 
         paths = new Paths(follower); // Build paths
 
