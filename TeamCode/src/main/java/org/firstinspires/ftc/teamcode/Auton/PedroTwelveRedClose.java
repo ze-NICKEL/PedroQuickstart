@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Auton;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
@@ -46,10 +45,8 @@ public class PedroTwelveRedClose extends OpMode {
     public void loop() {
         follower.update(); // Update Pedro Pathing
         autonomousPathUpdate(path); // Update autonomous state machine
+
         //int path and boolean pathRan are updated inside autonomousPathUpdate();
-
-
-
 
         // Log values to Panels and Driver Station
         panelsTelemetry.debug("Path State", pathState);
@@ -159,8 +156,8 @@ public class PedroTwelveRedClose extends OpMode {
             }
 
             //TODO: FIRST, TEST FIRSTINTAKE, THEN TEST REST OF PATHS
-            /*
-            else if (path == 2 && !follower.isBusy()) {
+
+            /*else if (path == 2 && !follower.isBusy()) {
                 pathRan = false;
                 follower.followPath(paths.firstGoal);
 
@@ -170,12 +167,21 @@ public class PedroTwelveRedClose extends OpMode {
 
                 pathRan = true;
 
-
                 }
             }
+
             else if (path == 2) {
+                pathRan = false;
                 follower.followPath(paths.secondIntake);
+
+
+                if (!follower.isBusy()) {
+                    pathRan = true;
+                    path = path + 1;
+                }
             }*/
+
+
             // Add your state machine Here
             // Access paths with paths.pathName
             // Refer to the Pedro Pathing Docs (Auto Example) for an example state machine
