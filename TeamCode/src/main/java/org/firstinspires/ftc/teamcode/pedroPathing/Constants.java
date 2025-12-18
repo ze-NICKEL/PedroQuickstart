@@ -55,7 +55,9 @@ public class Constants {
             .useSecondaryDrivePIDF(true)
 
             //TRANSLATIONAL PIDF COEFFICIENTS
-            .translationalPIDFCoefficients(new PIDFCoefficients(0.225, 0, 0.023, 0.024))
+
+            //NOTE: D MIGHT BE A LITTLE OFF
+            .translationalPIDFCoefficients(new PIDFCoefficients(0.225, 0, 0.027, 0.024))
             .secondaryTranslationalPIDFCoefficients(new PIDFCoefficients(0.40, 0, 0.05, 0.015));
 
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
